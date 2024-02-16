@@ -1,27 +1,28 @@
-import 'package:chat_app/chat-app/presentation/controller/profile_controller.dart';
+import 'package:chat_app/chat-app/presentation/controller/my_profile_controller.dart';
+import 'package:chat_app/chat-app/presentation/screens/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key, required this.id});
-  final String id;
+class MyProfilePage extends StatefulWidget {
+  const MyProfilePage({super.key});
+
+  @override
+  State<MyProfilePage> createState() => _MyProfilePageState();
+}
+
+class _MyProfilePageState extends State<MyProfilePage> {
+  final MyProfileController profileController = Get.put(MyProfileController());
 
   @override
   Widget build(BuildContext context) {
-    final ProfileController profileController =
-        Get.put(ProfileController(userId: id,));
     return Scaffold(
       appBar: AppBar(
-        title:  GetBuilder<ProfileController>(
-          builder: (context) {
-            return Text("${profileController.userModel.firstName}'s Profile");
-          }
-        ),
+        title: const Text('My Profile'),
       ),
       body: Container(
         padding: const EdgeInsets.all(16),
-        child: GetBuilder<ProfileController>(builder: (context) {
-          if (!profileController.loading) {
+        child: GetBuilder<MyProfileController>(builder: (context) {
+          if (profileController.loading == false) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -59,6 +60,23 @@ class ProfilePage extends StatelessWidget {
                 Text(
                   profileController.userModel.email,
                   style: const TextStyle(fontSize: 16),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => EditProfilePage(
+                            userModel: profileController.userModel,
+                          ));
+                    },
+                    child: const Text(
+                      'Edit Profile',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ],
             );

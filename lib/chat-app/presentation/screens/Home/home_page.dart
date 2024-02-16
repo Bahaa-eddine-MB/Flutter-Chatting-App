@@ -1,6 +1,7 @@
 import 'package:chat_app/chat-app/presentation/controller/home_page_controller.dart';
 import 'package:chat_app/chat-app/presentation/screens/Home/chat_history.dart';
 import 'package:chat_app/chat-app/presentation/screens/Home/users_page.dart';
+import 'package:chat_app/chat-app/presentation/screens/profile/myprofile.dart';
 import 'package:chat_app/chat-app/presentation/screens/profile/profile_page.dart';
 import 'package:chat_app/core/global/theme/ColorManager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -69,7 +70,7 @@ class HomePage extends StatelessWidget {
           return IndexedStack(
             index: homeController.pageIndex,
             children: [
-              ProfilePage(id: FirebaseAuth.instance.currentUser!.uid),
+              MyProfilePage(),
               const UsersPage(),
               const ChatHistoryPage(),
             ],

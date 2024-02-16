@@ -1,4 +1,3 @@
-import 'package:chat_app/chat-app/presentation/bindings/EditProfileBinding.dart';
 import 'package:chat_app/chat-app/presentation/bindings/ForgotPasswordBinding.dart';
 import 'package:chat_app/chat-app/presentation/bindings/HomeBinding.dart';
 import 'package:chat_app/chat-app/presentation/bindings/LoginBinding.dart';
@@ -58,10 +57,6 @@ class Routes {
         name: forgotPassword,
         page: () => const ForgotPassword(),
         binding: ForgotPasswordBinding()),
-    GetPage(
-        name: editProfile,
-        page: () => const EditProfilePage(),
-        binding: EditProfileBinding()),
     GetPage(name: historyChats, page: () => const ChatHistoryPage()),
   ];
 }
