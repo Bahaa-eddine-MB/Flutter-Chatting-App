@@ -14,7 +14,11 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title:  GetBuilder<ProfileController>(
           builder: (context) {
-            return Text("${profileController.userModel.firstName}'s Profile");
+            if (profileController.loading) {
+              return const Text('Loading...');
+            } else {
+              return Text("${profileController.userModel.firstName}'s Profile");
+            }
           }
         ),
       ),

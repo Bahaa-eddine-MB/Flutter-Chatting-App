@@ -1,3 +1,4 @@
+import 'package:chat_app/core/global/theme/ColorManager.dart';
 import 'package:chat_app/core/global/theme/StylesManager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isMine = userId == FirebaseAuth.instance.currentUser!.uid;
+    print(isMine);
     return Align(
       alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
@@ -20,7 +22,7 @@ class ChatBubble extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
           color:
-              isMine ? const Color.fromARGB(255, 233, 181, 243) : Colors.purple,
+              isMine ? ColorManager.primary : Colors.purple[300],
           borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(10),
               bottomLeft: isMine ? const Radius.circular(10) : Radius.zero,

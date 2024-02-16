@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
       drawer: Drawer(
         backgroundColor: Colors.grey[900],
         child: Center(
-            child: ElevatedButton(
+            child: TextButton(
           child: const Text("sing out"),
           onPressed: () {
             FirebaseAuth.instance.signOut();
@@ -69,10 +69,10 @@ class HomePage extends StatelessWidget {
         builder: (controller) {
           return IndexedStack(
             index: homeController.pageIndex,
-            children: [
+            children: const [
               MyProfilePage(),
-              const UsersPage(),
-              const ChatHistoryPage(),
+              UsersPage(),
+              ChatHistoryPage(),
             ],
           );
         },

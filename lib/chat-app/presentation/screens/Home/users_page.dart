@@ -40,8 +40,8 @@ class UsersPage extends StatelessWidget {
                   final user = homeController.users[index];
                   return ListTile(
                     onTap: () {
-                     // Get.to(ChatScreen(userModel: user,));
-                      Get.to(ProfilePage(id: user.id));
+                      Get.to(ChatScreen(userModel: user,));
+                     // Get.to(ProfilePage(id: user.id));
                     },
                     leading: const Icon(
                       Icons.account_circle,
