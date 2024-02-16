@@ -17,7 +17,7 @@ class MyProfileController extends GetxController {
 
   void fetchUsers(bool isEdit) async {
     final getUser = sl<GetUserByID>();
-    if (isEdit) {
+    if (!isEdit) {
       showLoadingDialogue();
     }
 
@@ -30,7 +30,7 @@ class MyProfileController extends GetxController {
           colorText: Colors.white,
           snackPosition: SnackPosition.BOTTOM);
     }, (r) async {
-      if (isEdit) {
+      if (!isEdit) {
         Get.back();
       }
 
