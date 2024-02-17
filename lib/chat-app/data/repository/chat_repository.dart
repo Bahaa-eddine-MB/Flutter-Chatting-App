@@ -1,6 +1,6 @@
 import 'package:chat_app/chat-app/data/datasource/chat_remote_data_source.dart';
+import 'package:chat_app/chat-app/data/models/ChatModel.dart';
 import 'package:chat_app/chat-app/data/models/MessageModel.dart';
-import 'package:chat_app/chat-app/data/models/UserModel.dart';
 import 'package:chat_app/chat-app/domain/repository/base_chat_repository.dart';
 import 'package:chat_app/core/error/exceptions.dart';
 import 'package:dartz/dartz.dart';
@@ -28,6 +28,16 @@ class ChatRepository implements BaseChatRepository {
     try {
       await baseremoteDataSource.sendMessage(message, chatId);
       return const Right(null);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ChatModel>>> getMyChats(String email) async {
+    try {
+      final result = await baseremoteDataSource.getMyChats(email);
+      return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.errorMessageModel.statusMessage));
     }

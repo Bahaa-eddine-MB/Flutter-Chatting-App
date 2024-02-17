@@ -1,3 +1,4 @@
+import 'package:chat_app/chat-app/data/models/ChatModel.dart';
 import 'package:chat_app/chat-app/data/models/MessageModel.dart';
 import 'package:chat_app/core/error/exceptions.dart';
 import 'package:chat_app/core/network/error_messae_model.dart';
@@ -6,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 abstract class BaseChatRemoteDataSource {
   Future<void> sendMessage(MessageModel message, String chatId);
   Future<String> createChat(String firstEmail, String secondEmail);
+  Future<List<ChatModel>> getMyChats(String email);
 }
 
 class RemoteChatDataSource extends BaseChatRemoteDataSource {
@@ -75,6 +77,35 @@ class RemoteChatDataSource extends BaseChatRemoteDataSource {
       } else {
         return snapshotWithEmail.id;
       }
+    } catch (e) {
+      throw const ServerException(
+        errorMessageModel:
+            ErrorMessageModel(statusMessage: "Something went wrong :("),
+      );
+    }
+  }
+
+  @override
+  Future<List<ChatModel>> getMyChats(String email) async {
+    try {
+      final chatCollection = FirebaseFirestore.instance.collection("chats");
+
+      final myChatsSnapshot =
+          await chatCollection.where("users", arrayContains: email).get();
+
+      final myChats = myChatsSnapshot.docs.map((doc) {
+        final chatId = doc.id;
+        final users = List<String>.from(doc.data()["users"]);
+        final createdAt = doc.data()["createdAt"] as Timestamp;
+
+        return ChatModel(
+          chatId: chatId,
+          users: users,
+          createdAt: createdAt.toDate(),
+        );
+      }).toList();
+
+      return myChats;
     } catch (e) {
       throw const ServerException(
         errorMessageModel:

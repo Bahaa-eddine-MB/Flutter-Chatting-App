@@ -5,6 +5,7 @@ import 'package:chat_app/chat-app/data/repository/user_repository.dart';
 import 'package:chat_app/chat-app/domain/repository/base_chat_repository.dart';
 import 'package:chat_app/chat-app/domain/repository/base_user_repository.dart';
 import 'package:chat_app/chat-app/domain/usecases/chat_create_chat_usecase.dart';
+import 'package:chat_app/chat-app/domain/usecases/chat_getmy_chats_usecase.dart';
 import 'package:chat_app/chat-app/domain/usecases/chat_send_message.dart';
 import 'package:chat_app/chat-app/domain/usecases/user_get_all.dart';
 import 'package:chat_app/chat-app/domain/usecases/user_get_user_byId.dart';
@@ -38,6 +39,7 @@ class ServicesLocator {
     sl.registerLazySingleton(() => GetUserByID(sl()));
     sl.registerLazySingleton(() => CreateChat(sl()));
     sl.registerLazySingleton(() => SendMessage(sl()));
+    sl.registerLazySingleton(() => GetMyChats(sl()));
 
     /// Repository
     sl.registerLazySingleton<BaseUserRepository>(() => UserRepository(sl()));

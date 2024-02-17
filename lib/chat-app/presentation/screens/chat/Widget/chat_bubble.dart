@@ -4,17 +4,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatBubble extends StatelessWidget {
-  final String userId;
+  final String userSender;
   final String message;
 
   const ChatBubble(
-      {key, required this.userId, required this.message})
+      {key, required this.userSender, required this.message})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool isMine = userId == FirebaseAuth.instance.currentUser!.uid;
-    print(isMine);
+    bool isMine = userSender == FirebaseAuth.instance.currentUser!.email!;
     return Align(
       alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(

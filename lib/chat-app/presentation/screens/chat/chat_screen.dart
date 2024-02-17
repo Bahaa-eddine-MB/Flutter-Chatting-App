@@ -10,8 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key, required this.userModel}) : super(key: key);
+  const ChatScreen(
+      {Key? key, required this.userModel, required this.goTopProfile})
+      : super(key: key);
   final UserModel userModel;
+  final bool goTopProfile;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -94,8 +97,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Get.to(() =>
-                                        ProfilePage(id: widget.userModel.id));
+                                    if (widget.goTopProfile) {
+                                      Get.to(() =>
+                                          ProfilePage(id: widget.userModel.id));
+                                    }
                                   },
                                   child: SizedBox(
                                     width: 220,
@@ -120,7 +125,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           final message = docs[index];
                           return ChatBubble(
                             message: message['message'],
-                            userId: message['sender'],
+                            userSender: message['sender'],
                           );
                         },
                       );

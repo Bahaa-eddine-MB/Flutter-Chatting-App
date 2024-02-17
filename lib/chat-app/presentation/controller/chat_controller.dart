@@ -28,7 +28,7 @@ class ChatController extends GetxController {
           MessageModel(
               message: messageController.text,
               date: DateTime.now(),
-              sender: FirebaseAuth.instance.currentUser!.uid),
+              sender: FirebaseAuth.instance.currentUser!.email!),
           chatId);
 
       result.fold((l) {

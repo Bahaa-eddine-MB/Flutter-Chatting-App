@@ -1,8 +1,7 @@
 import 'package:chat_app/chat-app/presentation/controller/home_page_controller.dart';
-import 'package:chat_app/chat-app/presentation/controller/profile_controller.dart';
 import 'package:chat_app/chat-app/presentation/screens/chat/chat_screen.dart';
-import 'package:chat_app/chat-app/presentation/screens/profile/profile_page.dart';
 import 'package:chat_app/core/global/theme/StylesManager.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +13,7 @@ class UsersPage extends StatelessWidget {
 
     return RefreshIndicator(
       backgroundColor: Colors.grey[900],
-      onRefresh: (){
+      onRefresh: () {
         homeController.fetchUsers();
         return Future<void>.value();
       },
@@ -40,14 +39,20 @@ class UsersPage extends StatelessWidget {
                   final user = homeController.users[index];
                   return ListTile(
                     onTap: () {
-                      Get.to(ChatScreen(userModel: user,));
-                     // Get.to(ProfilePage(id: user.id));
+                      Get.to(ChatScreen(
+                        userModel: user,
+                        goTopProfile: true,
+                      ));
+                      // Get.to(ProfilePage(id: user.id));
                     },
                     leading: const Icon(
                       Icons.account_circle,
                       size: 40,
                     ),
-                    title: Text("${user.firstName} ${user.lastName}"),
+                    title: Text(
+                        user.email == FirebaseAuth.instance.currentUser!.email!
+                            ? "Me"
+                            : "${user.firstName} ${user.lastName}"),
                     subtitle: Text(user.email),
                   );
                 },
