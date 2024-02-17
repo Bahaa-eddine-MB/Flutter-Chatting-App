@@ -157,11 +157,15 @@ class _ChatScreenState extends State<ChatScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  keyboardType: TextInputType.text,
+                  minLines: 1,
+                  maxLines: 4,
                   onSubmitted: (String value) {
                     chatController.sendMessage();
                   },
                   controller: chatController.messageController,
                   decoration: InputDecoration(
+
                       hintText: "Type your message",
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.send_rounded),
